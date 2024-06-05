@@ -1,0 +1,3 @@
+var documenterSearchIndex = {"docs":
+[{"location":"","page":"Home","title":"Home","text":"CurrentModule = SatplanExamples","category":"page"},{"location":"#SatplanExamples","page":"Home","title":"SatplanExamples","text":"","category":"section"},{"location":"","page":"Home","title":"Home","text":"Documentation for SatplanExamples.","category":"page"},{"location":"","page":"Home","title":"Home","text":"","category":"page"},{"location":"","page":"Home","title":"Home","text":"Modules = [SatplanExamples]","category":"page"},{"location":"#SatplanExamples.get_moves-Tuple{Any, Any}","page":"Home","title":"SatplanExamples.get_moves","text":"get_moves(solution, codebook)\n\nExtract moves from SAT solver's solution.\n\n\n\n\n\n","category":"method"}]
+}
