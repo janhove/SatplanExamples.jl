@@ -1,3 +1,11 @@
+"""
+    to_DIMACS(cnf, file, codebook)
+    
+Exports set of clauses to its DIMACS representation. 
+
+The `file` will be fed to the SAT solver.
+The `codebook` is used during postprocessing.
+"""
 function to_DIMACS(cnf, file, codebook)
     n = length(cnf)
     
@@ -21,9 +29,3 @@ function to_DIMACS(cnf, file, codebook)
         end
     end
 end
-
-"""
-	to_DIMACS(my_cnf, "my_cnf.cnf", "my_cnf.code")
-Exports set of clauses to its DIMACS representation. 
-Feed the .cnf file to a SAT solver and use the .code file to during postprocessing.
-"""
