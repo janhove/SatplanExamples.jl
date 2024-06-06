@@ -1,6 +1,13 @@
+"""
+    knights_problem_old(nr_ranks = 8, nr_files = 8, nr_moves = nr_files * nr_ranks, start_square = [1, 1]; open_tour = false)
+    
+Generates (inefficient) CNF representation of the knight's tour problem.
+
+When generating the CNF representation for an open tour, set `nr_moves` to `nr_files * nr_ranks - 1`.
+"""
 function knights_problem_old(
   nr_ranks = 8, nr_files = 8, nr_moves = nr_files * nr_ranks, 
-  start_square = [1, 1]; open = false
+  start_square = [1, 1]; open_tour = false
   )
   # Preliminaries --------------------------------------------------------------
   max_t = nr_moves + 1
@@ -44,7 +51,7 @@ function knights_problem_old(
   x1 = knight_moves[:, 3] 
   y1 = knight_moves[:, 4]
   
-  cnf = Set([])
+  cnf = []
   
   for t in 1:(max_t - 1)
     # At least one move per turn -----------------------------------------------
@@ -147,13 +154,20 @@ function knights_problem_old(
     , Clause([visited(x[i], y[i], max_t)], [1]))
   end
   
-  if (!open)
+  if (!open_tour)
     push!(cnf, Clause([on(start_square[1], start_square[2], max_t)], [1]))
   end
 
   return unique(cnf)
 end
 
+"""
+    knights_problem(nr_ranks = 8, nr_files = 8, nr_moves = nr_files * nr_ranks, start_square = [1, 1]; open_tour = false)
+    
+Generates (more efficient) CNF representation of the knight's tour problem.
+
+When generating the CNF representation for an open tour, set `nr_moves` to `nr_files * nr_ranks - 1`.
+"""
 function knights_problem(
   nr_ranks = 8, nr_files = 8, nr_moves = nr_files * nr_ranks, 
   start_square = [1, 1]; open_tour = false
@@ -188,7 +202,7 @@ function knights_problem(
   
   x = squares[:, 1];
   y = squares[:, 2];
-  cnf = Set([])
+  cnf = []
   
   for t in 1:(max_t - 1)
     # At least one move per turn -----------------------------------------------             

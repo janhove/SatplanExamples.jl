@@ -4,7 +4,22 @@ struct Clause
   pol::Vector{Int}
 end
 
-# Clauses are the same (and hash the same) if they 
-# contains the same literals (in the same order).
-Base.:(==)(a::Clause, b::Clause) = a.vars == b.vars && a.pol == b.pol
-Base.hash(a::Clause, h::UInt) = hash(a.vars, hash(a.pol, hash(:Clause, h)))
+function Base.:(==)(a::Clause, b::Clause)
+    if length(a.vars) != length(b.vars) || length(a.pol) != length(b.pol)
+        return false
+    end
+    indices_a = sortperm(a.vars)
+    sorted_a_vars = a.vars[indices_a]
+    sorted_a_pol = a.pol[indices_a]
+    indices_b = sortperm(b.vars)
+    sorted_b_vars = b.vars[indices_b]
+    sorted_b_pol = b.pol[indices_b]
+    return sorted_a_vars == sorted_b_vars && sorted_a_pol == sorted_b_pol
+end
+
+function Base.hash(a::Clause, h::UInt)
+    indices = sortperm(a.vars)
+    sorted_vars = a.vars[indices]
+    sorted_pol = a.pol[indices]
+    return hash(sorted_vars, hash(sorted_pol, hash(:Clause, h)))
+end

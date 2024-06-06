@@ -1,0 +1,106 @@
+move A from table to B at time 3
+move C from table to B at time 3
+C clear at time 1
+C clear at time 2
+move A from B to C at time 1
+move A from table to C at time 1
+move B from A to C at time 1
+move B from table to C at time 1
+move C from table to A at time 1
+move A from B to table at time 2
+table clear at time 2
+move C from A to table at time 2
+move C from table to B at time 2
+move B from C to A at time 2
+move B from table to C at time 2
+move B from A to C at time 3
+B on C at time 4
+B clear at time 1
+move A from table to B at time 1
+A clear at time 1
+move B from A to table at time 1
+move B from table to A at time 1
+move C from A to B at time 2
+move C from B to A at time 3
+move C from table to A at time 3
+B on C at time 1
+B on C at time 2
+move B from C to A at time 1
+move B from C to table at time 1
+C clear at time 3
+move A from C to B at time 2
+move A from C to table at time 2
+move B from C to table at time 2
+move B from A to table at time 2
+move A from B to table at time 3
+A on B at time 4
+move A from table to B at time 2
+move C from B to table at time 2
+table clear at time 1
+move A from C to table at time 3
+A on table at time 4
+B on table at time 2
+B on table at time 3
+A on table at time 3
+move A from C to table at time 1
+A on B at time 2
+A on B at time 3
+move A from B to C at time 2
+move C from B to A at time 2
+move A from table to C at time 2
+move B from table to A at time 2
+C on table at time 1
+B on A at time 3
+move C from B to table at time 3
+move A from table to C at time 3
+move B from table to C at time 3
+move A from C to B at time 1
+move C from A to B at time 1
+C on B at time 2
+B clear at time 2
+move A from C to B at time 3
+B clear at time 4
+B on C at time 3
+move B from C to A at time 3
+move B from C to table at time 3
+table clear at time 4
+move C from B to A at time 1
+B on table at time 1
+move C from A to table at time 3
+table clear at time 3
+A on C at time 2
+A on C at time 3
+move A from B to table at time 1
+move B from A to table at time 3
+B on A at time 1
+move A from B to C at time 3
+A on C at time 1
+move C from table to B at time 1
+B clear at time 3
+A on C at time 4
+A clear at time 3
+C on B at time 1
+move C from B to table at time 1
+C on B at time 3
+move B from A to C at time 2
+C on A at time 2
+move C from A to table at time 1
+C on table at time 2
+C on table at time 3
+A clear at time 4
+A on B at time 1
+move B from table to A at time 3
+move C from A to B at time 3
+move C from table to A at time 2
+A clear at time 2
+C on table at time 4
+B on table at time 4
+C clear at time 4
+B on A at time 2
+C on B at time 4
+C on A at time 1
+A on table at time 2
+B on A at time 4
+A on table at time 1
+C on A at time 4
+C on A at time 3

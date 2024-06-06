@@ -1,3 +1,8 @@
+"""
+    sussman(nr_moves = 3)
+    
+Generate CNF representation of Sussman's anomaly, to be solved in the desired number of moves.
+"""
 function sussman(nr_moves = 3)
 
   NR_BLOCKS = 3
@@ -33,10 +38,7 @@ function sussman(nr_moves = 3)
   y = moves[:, 2]
   z = moves[:, 3] 
   
-  # Use set to store clauses. This gets rid of some literal duplicates.
-  # It doesn't get rid of duplicates where the literals are in a different order,
-  # but the solver spots these easily.
-  cnf = Set([])
+  cnf = []
   
   for t in 1:nr_moves
     # At least one move per turn -----------------------------------------------
@@ -173,8 +175,3 @@ function sussman(nr_moves = 3)
   # Return ---------------------------------------------------------------------
   return cnf
 end
-
-"""
-	sussman()
-Create CNF representation of Sussman's anomaly, to be solved in three moves by default.
-"""

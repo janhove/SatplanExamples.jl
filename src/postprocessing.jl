@@ -45,7 +45,7 @@ function print_state(solution, codebook, turn)
 end
 
 """
-    print_state(solution, codebook, turn)
+    get_fullsolution(solution, codebook)
     
 Extract the full solution from the SAT solver's output.
 
