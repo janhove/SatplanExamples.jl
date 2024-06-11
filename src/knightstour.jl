@@ -34,6 +34,42 @@ function knights_problem_old(
     return paste("visisted", x, y, "at time", time)
   end
   
+  cnf = []
+  
+  # Square logic ---------------------------------------------------------------
+  squares = hcat([[x, y] for x in 1:nr_files for y in 1:nr_ranks]...)'
+  x = squares[:, 1]
+  y = squares[:, 2]
+  
+  for t in 1:max_t
+    # # Needs to be on a square --------------------------------------------------
+    # # These clauses are superfluous (implied by initial state + 
+    # # newly visited implies on)
+    # push!(cnf
+    # , Clause([paste("on", x[i], y[i], t) for i in 1:length(x)]
+    #          , repeat([1], length(x))))
+    
+    # Only on one square -------------------------------------------------------
+    for i in 1:(size(squares)[1] - 1)
+      for j in (i+1):size(squares)[1]
+        push!(cnf
+        , Clause([on(x[i], y[i], t)
+                 , on(x[j], y[j], t)]
+                 , [0, 0]))
+      end
+    end
+    
+    # On implies visited -------------------------------------------------------
+    for my_x in unique(x)
+      for my_y in unique(y)
+        push!(cnf
+              , Clause([on(my_x, my_y, t)
+                       , visited(my_x, my_y, t)]
+                       , [0, 1]))
+      end
+    end
+  end
+  
   # Move logic -----------------------------------------------------------------
   
   # Permissible knight moves
@@ -50,8 +86,6 @@ function knights_problem_old(
   y0 = knight_moves[:, 2]
   x1 = knight_moves[:, 3] 
   y1 = knight_moves[:, 4]
-  
-  cnf = []
   
   for t in 1:(max_t - 1)
     # At least one move per turn -----------------------------------------------
@@ -99,40 +133,6 @@ function knights_problem_old(
                , visited(x, y, t + 1)
                , on(x, y, t + 1)]
                , [1, 0, 1]))
-      end
-    end
-  end
-  
-  # Square logic ---------------------------------------------------------------
-  squares = hcat([[x, y] for x in 1:nr_files for y in 1:nr_ranks]...)'
-  x = squares[:, 1]
-  y = squares[:, 2]
-  
-  for t in 1:max_t
-    # # Needs to be on a square --------------------------------------------------
-    # # These clauses are superfluous (implied by initial state + 
-    # # newly visited implies on)
-    # push!(cnf
-    # , Clause([paste("on", x[i], y[i], t) for i in 1:length(x)]
-    #          , repeat([1], length(x))))
-    
-    # Only on one square -------------------------------------------------------
-    for i in 1:(size(squares)[1] - 1)
-      for j in (i+1):size(squares)[1]
-        push!(cnf
-        , Clause([on(x[i], y[i], t)
-                 , on(x[j], y[j], t)]
-                 , [0, 0]))
-      end
-    end
-    
-    # On implies visited -------------------------------------------------------
-    for my_x in unique(x)
-      for my_y in unique(y)
-        push!(cnf
-              , Clause([on(my_x, my_y, t)
-                       , visited(my_x, my_y, t)]
-                       , [0, 1]))
       end
     end
   end
@@ -193,7 +193,7 @@ function knights_problem(
     return paste("on", x, y, "at time", time)
   end
   
-  # Move logic *****************************************************************
+  # Construct CNF **************************************************************
   squares = hcat([
     [x, y]
     for x in 1:nr_files
@@ -204,6 +204,21 @@ function knights_problem(
   y = squares[:, 2];
   cnf = []
   
+  # Square logic ***************************************************************
+  for t in 1:max_t
+    # Knight can only be on one square -----------------------------------------
+    # Note: We don't need to specify that the knight be on at least one square,
+    # since this is implied by the initial state (knight on start square)
+    # and the move logic (knight on some square after move).
+    for i in 1:(length(x) - 1)
+      for j in (i+1):length(x)
+        push!(cnf, Clause([on(x[i], y[i], t), on(x[j], y[j], t)]
+                          , [0, 0]))
+      end
+    end
+  end
+  
+  # Move logic *****************************************************************
   for t in 1:(max_t - 1)
     # At least one move per turn -----------------------------------------------             
     push!(cnf, Clause([to(x[i], y[i], t) for i in 1:length(x)]
@@ -240,20 +255,7 @@ function knights_problem(
     end
   end
   
-  # Square logic ***************************************************************
-  for t in 1:max_t
-    # Knight can only be on one square -----------------------------------------
-    # Note: We don't need to specify that the knight be on at least one square,
-    # since this is implied by the initial state (knight on start square)
-    # and the move logic (knight on some square after move).
-    for i in 1:(length(x) - 1)
-      for j in (i+1):length(x)
-        push!(cnf, Clause([on(x[i], y[i], t), on(x[j], y[j], t)]
-                          , [0, 0]))
-      end
-    end
-  end
-  
+    
   # Initial conditions *********************************************************
   push!(cnf, Clause([on(start_square[1], start_square[2], 1)], [1]))
   

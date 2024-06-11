@@ -62,6 +62,19 @@ function get_fullsolution(solution, codebook)
 end
 
 """
+    print_fullsolution(solution, codebook)
+    
+Print the full solution from the SAT solver's output to the prompt.
+
+The solution is a plain text file with the SAT solver's output.
+The codebook is the one created when outputting the CNF to the DIMACS format.
+"""
+function print_fullsolution(solution, codebook)
+  soln = get_fullsolution(solution, codebook)
+  show(stdout, "text/plain", soln)
+end
+
+"""
     get_state(solution, codebook, turn)
     
 Extract the SAT solver's solution's state at the indicated turn.
